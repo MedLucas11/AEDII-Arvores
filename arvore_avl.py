@@ -134,7 +134,6 @@ class ArvoreAVL:
                 raiz = raiz.esquerda
             
             else:
-                
                 raiz.chave, raiz.titulo, raiz.autor, raiz.editora = self._minimo(raiz.direita)
                 raiz.direita = self.remover(raiz.direita, raiz.chave)
         
