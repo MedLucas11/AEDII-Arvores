@@ -6,17 +6,17 @@ def salvar_biblioteca(biblioteca, nome_arquivo):
     nome_arquivo += ".pkl"
     with open(nome_arquivo, 'wb') as arquivo:
         pickle.dump(biblioteca, arquivo)
-    print("Biblioteca salva com sucesso!")
+    print("\nBiblioteca salva com sucesso!")
 
 
 def carregar_biblioteca(nome_arquivo):
     try:
         with open(nome_arquivo, 'rb') as arquivo:
             biblioteca = pickle.load(arquivo)
-        print("Biblioteca carregada com sucesso!")
+        print("\nBiblioteca carregada com sucesso!")
         return biblioteca
     except FileNotFoundError:
-        print("Arquivo de biblioteca não encontrado.")
+        print("\nArquivo de biblioteca não encontrado.")
 
 
 def add_livro(biblioteca):
@@ -25,13 +25,13 @@ def add_livro(biblioteca):
         existencia = biblioteca.buscar_livro(id_livro)
 
         if existencia is not None:
-            print("Este ID já existe na biblioteca, digite outro (ou remova o existente).")
+            print("\nEste ID já existe na biblioteca, digite outro (ou remova o existente).")
         else:
             titulo = input("Digite o título do livro: ")
             autor = input("Digite o(a) autor(a) do livro: ")
             editora = input("Digite a editora do livro: ")
             biblioteca.inserir_livro(id_livro, titulo, autor, editora)
-            print("Livro adicionado com sucesso!")
+            print("\nLivro adicionado com sucesso!")
             break
             
 
@@ -41,10 +41,10 @@ def del_livro(biblioteca):
         existencia = biblioteca.buscar_livro(id_livro)
 
         if existencia is None:
-            print("Este ID não existe na biblioteca. Não foi possível remover.")
+            print("\nEste ID não existe na biblioteca. Não foi possível remover.")
         else:
             biblioteca.remover_livro(id_livro)
-            print("Livro removido com sucesso!")
+            print("\nLivro removido com sucesso!")
             break
 
 
@@ -52,13 +52,13 @@ def info(biblioteca, id_livro):
     livro = biblioteca.buscar_livro(id_livro)
     
     if livro is not None:
-        print(f"ID: {id_livro}")
+        print(f"\nID: {id_livro}")
         print(f"Título: {livro.titulo}")
         print(f"Autor: {livro.autor}")
-        print(f"Editora: {livro.editora}")
+        print(f"Editora: {livro.editora}\n")
     
     else:
-        print("Livro não encontrado!")
+        print("\nLivro não encontrado!")
 
 
 def disponibilidade(biblioteca, id_livro):
@@ -70,7 +70,7 @@ def disponibilidade(biblioteca, id_livro):
         else:
             return False
     else:
-        print("Livro não encontrado na biblioteca")
+        print("\nLivro não encontrado na biblioteca")
 
 
 def emprestar(biblioteca, id_livro, aluno):
@@ -83,7 +83,7 @@ def lista_emprestimo(biblioteca, id_livro):
     if livro is not None:
         return biblioteca.lista_emprestimos(id_livro)
     else:
-        print("Livro não encontrado na biblioteca")
+        print("\nLivro não encontrado na biblioteca")
 
 
 def devolver(biblioteca, id_livro):
@@ -96,7 +96,7 @@ def devolver(biblioteca, id_livro):
 
 
 def exibir_menu():
-    print("-- Sistema gerenciador de bibliotecas --")
+    print("\n-- Sistema gerenciador de bibliotecas --\n")
     print("1. Criar biblioteca")
     print("2. Selecionar biblioteca")
     print("3. Adicionar livro à biblioteca")
@@ -124,56 +124,56 @@ def menu_principal():
             nome_biblioteca = input("Digite o nome que deseja para biblioteca: ")
             nova_biblioteca = ArvoreAVL()
             bibliotecas[nome_biblioteca] = nova_biblioteca
-            print(f"{nome_biblioteca} criada com sucesso!")
+            print(f"\n{nome_biblioteca} criada com sucesso!")
         
         elif opcao == 2:
             if not bibliotecas:
-                print("Nenhuma biblioteca disponível. Crie uma primeiro")
+                print("\nNenhuma biblioteca disponível. Crie uma primeiro")
             else:
-                print("Bibliotecas disponíveis:")
+                print("\nBibliotecas disponíveis:")
                 for nome in bibliotecas.keys():
                     print(f"- {nome}")
                 escolha = input("Digite o nome da biblioteca que gostaria de gerenciar: ")
                 if escolha in bibliotecas:
                     biblioteca_atual = bibliotecas[escolha]
-                    print(f"Biblioteca '{escolha}' selecionada.")
+                    print(f"\nBiblioteca '{escolha}' selecionada.")
                 else:
-                    print("Biblioteca não encontrada.")
+                    print("\nBiblioteca não encontrada.")
         
         elif opcao == 3:
             if biblioteca_atual is None:
-                print("Nenhuma biblioteca para gerenciar selecionada!")
+                print("\nNenhuma biblioteca para gerenciar selecionada!")
             else:
                 add_livro(biblioteca_atual)
         
         elif opcao == 4:
             if biblioteca_atual is None:
-                print("Nenhuma biblioteca para gerenciar selecionada!")
+                print("\nNenhuma biblioteca para gerenciar selecionada!")
             else:
                 del_livro(biblioteca_atual)
         
         elif opcao == 5:
             if biblioteca_atual is None:
-                print("Nenhuma biblioteca para gerenciar selecionada!")
+                print("\nNenhuma biblioteca para gerenciar selecionada!")
             else:
                 id_livro = int(input("Digite o ID do livro que deseja saber mais: "))
                 info(biblioteca_atual, id_livro)
 
         elif opcao == 6:
             if biblioteca_atual is None:
-                print("Nenhuma biblioteca para gerenciar selecionada!")
+                print("\nNenhuma biblioteca para gerenciar selecionada!")
             else:
                 id_livro = int(input("Digite o ID do livro que deseja saber mais: "))
                 disp = disponibilidade(biblioteca_atual, id_livro)
                 
                 if disp == True:
-                    print("Livro disponível para empréstimo!")
+                    print("\nLivro disponível para empréstimo!")
                 else:
-                    print("Livro NÃO disponível para empréstimo. Aguarde a devolução")
+                    print("\nLivro NÃO disponível para empréstimo. Aguarde a devolução")
 
         elif opcao == 7:
             if biblioteca_atual is None:
-                print("Nenhuma biblioteca para gerenciar selecionada!")
+                print("\nNenhuma biblioteca para gerenciar selecionada!")
             else:
                 id_livro = int(input("Digite o ID do livro: "))
                 if disponibilidade(biblioteca_atual, id_livro):
@@ -184,7 +184,7 @@ def menu_principal():
                     aluno.append(ra)
                     emprestar(biblioteca_atual, id_livro, aluno)
                 else:
-                    print("Livro já emprestado. Aguarde a devolução")
+                    print("\nLivro já emprestado. Aguarde a devolução")
         
 
         elif opcao == 8:
