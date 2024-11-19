@@ -1,4 +1,3 @@
-import random
 import time
 from arvore_rubronegra import BibliotecaRubroNegra
 
@@ -44,26 +43,6 @@ def tempo_remocao_rb(arvore, id):
 
     tempo_final = end_time - start_time
     
-    print(f"O livro foi removido com sucesso.")
+    print(f"\nO livro foi removido com sucesso.")
     print(f"Tempo para remover o ID aleatório {id} da árvore Rubro-Negra: {tempo_final:.7f} s")
-
-
-def main():
-    n = int(input("Digite a quantidade de itens que gostaria de inserir nas árvores para realizar os testes: "))
-
-    id_busca = random.randint(0, n-1)
-    id_remocao = random.randint(0, n-1)
-
-    print("\n-- TESTE DO TEMPO DE INSERÇÃO DE ITENS --")
-    rb_tempo, arvore_rb = tempo_insercao_rb(n)
-    print(f"Em média, o tempo de inserção de cada item na árvore Rubro-Negra foi: {rb_tempo/n:.7f} s")
-
-    print("\n-- TESTE DO TEMPO DE BUSCA ALEATÓRIA --")
-    tempo_busca_rb(arvore_rb, id_busca)
-
-    print("\n-- TESTE DO TEMPO DE REMOÇÃO ALEATÓRIA --")
-    tempo_remocao_rb(arvore_rb, id_remocao)
-
-
-main()
-
+    arvore.verificar_balanceamento()

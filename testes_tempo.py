@@ -1,4 +1,5 @@
 from arvore_avl import ArvoreAVL
+from testes_tempo_rubronegra import *
 import time, random
 
 
@@ -34,7 +35,7 @@ def tempo_busca_avl(arvore, id):
 
     
     if livro is not None:
-        print(f"ID - {livro.chave}\n{livro.titulo}\n{livro.autor}\n{livro.editora}")
+        print(f"ID - {livro.chave}\n{livro.titulo}\n{livro.autor}\n{livro.editora}\n")
     else:
         print(f"Livro com ID {id} não foi encontrado na árvore")
     
@@ -60,19 +61,21 @@ def main():
 
     print("\n-- TESTE DO TEMPO DE INSERÇÃO DE ITENS --")
     avl_tempo, arvore_avl = tempo_insercao_avl(n)
-    #rb_tempo, arvore_rb = tempo_insercao_rb(n)
-
-    print(f"Em média, o tempo de inserção de cada item na árvore AVL foi: {avl_tempo/n:.7f} s")
+    print(f"Em média, o tempo de inserção de cada item na árvore AVL foi: {avl_tempo/n:.7f} s\n")
+    
+    rb_tempo, arvore_rb = tempo_insercao_rb(n)
+    print(f"Em média, o tempo de inserção de cada item na árvore Rubro-Negra foi: {rb_tempo/n:.7f} s")
 
 
     print("\n-- TESTE DO TEMPO DE BUSCA ALEATÓRIA --")
     tempo_busca_avl(arvore_avl, id_busca)
-    #tempo_busca_rb(arvore_rb, id_busca)
+    tempo_busca_rb(arvore_rb, id_busca)
 
     
     print("\n-- TESTE DO TEMPO DE REMOÇÃO ALEATÓRIA --")
     tempo_remocao_avl(arvore_avl, id_remocao)
-    #tempo_remocao_rb(arvore_rb, id_remocao)
+    tempo_remocao_rb(arvore_rb, id_remocao)
 
 
-main()
+if __name__ == "__main__":
+    main()

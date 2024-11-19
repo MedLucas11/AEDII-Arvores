@@ -4,6 +4,8 @@ class NoRubroNegro:
         self.titulo = titulo
         self.autor = autor
         self.editora = editora
+        self.emprestado_por = []
+        self.disponivel = True
         self.cor = "vermelho"  # Todos os novos nós são inicialmente vermelhos
         self.esquerda = None
         self.direita = None
@@ -214,3 +216,66 @@ class BibliotecaRubroNegra:
                     x = self.raiz
         x.cor = "preto"
 
+
+    def emprestimo(self, id_livro, aluno):
+        livro = self.buscar_livro(id_livro)
+        livro.emprestado_por.append(aluno)
+        livro.disponivel = False
+        
+        print(f"\nEmpréstimo realizado com sucesso!")
+    
+
+    def lista_emprestimos(self, id_livro):
+        livro = self.buscar_livro(id_livro)
+
+        print(f"\nLista de empréstimos do livro {id_livro} - {livro.titulo}: {livro.emprestado_por}")
+
+
+    def devolucao(self, id_livro):
+        livro = self.buscar_livro(id_livro)
+        livro.disponivel = True
+
+        print(f"\n{id_livro} - {livro.titulo} devolvido com sucesso!")
+    
+
+    def _verifica_propriedade_vermelha(self, no):
+        """Verifica se nenhum nó vermelho tem filhos vermelhos"""
+        if no == self.NULO:
+            return True
+        
+        if no.cor == "vermelho":
+            if no.esquerda.cor == "vermelho" or no.direita.cor == "vermelho":
+                return False
+        
+        return self._verifica_propriedade_vermelha(no.esquerda) and self._verifica_propriedade_vermelha(no.direita)
+
+    
+    def _verifica_propriedade_preto(self, no):
+        """Verifica se os caminhos tem o mesmo numéro de nós pretos (Altura negra)"""
+        if no == self.NULO:
+            return 1
+        
+        esquerda = self._verifica_propriedade_preto(no.esquerda)
+        direita = self._verifica_propriedade_preto(no.direita)
+
+        if esquerda == 0 or direita == 0 or esquerda != direita:
+            return 0
+
+        return esquerda + (1 if no.cor == "preto" else 0)    
+        
+    
+    def verificar_balanceamento(self):
+        if self.raiz.cor != "preto":
+            print("\nA raiz não é negra.")
+            return False
+        
+        if not self._verifica_propriedade_vermelha(self.raiz):
+            print("\nA propriedade de que um nó vermelho só pode possuir um pai negro foi violada.")
+            return False
+        
+        if not self._verifica_propriedade_preto(self.raiz):
+            print("\nA altura negra é inconsistente entre os nós.")
+            return False
+        
+        print("\nA árvore rubro-negra está corretamente balanceada!")
+        return True

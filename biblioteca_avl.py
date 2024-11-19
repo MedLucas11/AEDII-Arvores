@@ -96,7 +96,7 @@ def devolver(biblioteca, id_livro):
 
 
 def exibir_menu():
-    print("\n-- Sistema gerenciador de bibliotecas --\n")
+    print("\n-- Sistema gerenciador de bibliotecas (Árvore AVL) --\n")
     print("1. Criar biblioteca")
     print("2. Selecionar biblioteca")
     print("3. Adicionar livro à biblioteca")
@@ -163,7 +163,7 @@ def menu_principal():
             if biblioteca_atual is None:
                 print("\nNenhuma biblioteca para gerenciar selecionada!")
             else:
-                id_livro = int(input("Digite o ID do livro que deseja saber mais: "))
+                id_livro = int(input("Digite o ID do livro que deseja verificar a disponibilidade: "))
                 disp = disponibilidade(biblioteca_atual, id_livro)
                 
                 if disp == True:
@@ -227,4 +227,5 @@ def menu_principal():
         else:
             print("Opção inválida. Digite uma opção válida.")
 
-menu_principal()
+if __name__ == "__main__":
+    menu_principal()
