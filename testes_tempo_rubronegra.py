@@ -46,3 +46,16 @@ def tempo_remocao_rb(arvore, id):
     print(f"\nO livro foi removido com sucesso.")
     print(f"Tempo para remover o ID aleatório {id} da árvore Rubro-Negra: {tempo_final:.7f} s")
     arvore.verificar_balanceamento()
+
+
+def remocao_n_rb(arvore, n):
+    
+    start_time = time.time()
+    for i in range(n):
+        arvore.remover_livro(i)
+    end_time = time.time()
+
+    tempo_final = end_time - start_time
+
+    print(f"\nTempo para remover {n} itens da árvore Rubro-Negra: {tempo_final:.7f} s")
+    arvore.verificar_balanceamento()

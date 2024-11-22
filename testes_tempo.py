@@ -51,7 +51,20 @@ def tempo_remocao_avl(arvore, id):
     print(f"O livro foi removido com sucesso.")
     print(f"Tempo para remover o ID aleatório {id} da árvore AVL: {tempo_final:.7f} s")
     arvore.verifica_arvore_balanceada()
+
+
+def remocao_n_avl(arvore, n):
     
+    start_time = time.time()
+    for i in range(n):
+        arvore.remover_livro(i)
+    end_time = time.time()
+
+    tempo_final = end_time - start_time
+
+    print(f"Tempo para remover {n} itens da árvore AVL: {tempo_final:.7f} s")
+    arvore.verifica_arvore_balanceada()
+
 
 def main():
     n = int(input("Digite a quantidade de itens que gostaria de inserir nas árvores para realizar os testes: "))
@@ -75,6 +88,14 @@ def main():
     print("\n-- TESTE DO TEMPO DE REMOÇÃO ALEATÓRIA --")
     tempo_remocao_avl(arvore_avl, id_remocao)
     tempo_remocao_rb(arvore_rb, id_remocao)
+
+    arvore_avl.inserir_livro(id_remocao, f"Livro {id_remocao}", f"Autor {id_remocao}", f"Editora {id_remocao}")
+    arvore_rb.inserir_livro(id_remocao, f"Livro {id_remocao}", f"Autor {id_remocao}", f"Editora {id_remocao}")
+
+    print(f"\n-- TESTE DO TEMPO DE REMOÇÃO DE {int(n/2)} ITENS --")
+    remocao_n_avl(arvore_avl, int(n/2))
+    remocao_n_rb(arvore_rb, int(n/2))
+
 
 
 if __name__ == "__main__":
